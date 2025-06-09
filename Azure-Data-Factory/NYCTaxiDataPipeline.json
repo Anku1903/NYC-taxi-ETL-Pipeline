@@ -1,0 +1,120 @@
+{
+  "name": "NYCTaxiDataPipeline",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyNYCTaxiData",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 3,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "userProperties": [],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "HttpReadSettings",
+              "requestMethod": "GET",
+              "requestTimeout": "00:05:00"
+            },
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings",
+              "skipLineCount": 0
+            }
+          },
+          "sink": {
+            "type": "DelimitedTextSink",
+            "storeSettings": {
+              "type": "AzureBlobFSWriteSettings",
+              "copyBehavior": "PreserveHierarchy"
+            },
+            "formatSettings": {
+              "type": "DelimitedTextWriteSettings",
+              "quoteAllText": true,
+              "fileExtension": ".csv"
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": []
+          }
+        },
+        "inputs": [
+          {
+            "referenceName": "NYCTaxiDataSource_DS",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "NYCTaxiDataSink_DS",
+            "type": "DatasetReference",
+            "parameters": {
+              "FileName": {
+                "value": "@concat('nyctaxi_', formatDateTime(utcnow(), 'yyyyMMdd_HHmmss'), '.csv')",
+                "type": "Expression"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "LogSuccess",
+        "type": "SetVariable",
+        "dependsOn": [
+          {
+            "activity": "CopyNYCTaxiData",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "userProperties": [],
+        "typeProperties": {
+          "variableName": "PipelineStatus",
+          "value": "Success"
+        }
+      },
+      {
+        "name": "LogFailure",
+        "type": "SetVariable",
+        "dependsOn": [
+          {
+            "activity": "CopyNYCTaxiData",
+            "dependencyConditions": ["Failed"]
+          }
+        ],
+        "userProperties": [],
+        "typeProperties": {
+          "variableName": "PipelineStatus",
+          "value": "Failed"
+        }
+      }
+    ],
+    "variables": {
+      "PipelineStatus": {
+        "type": "String",
+        "defaultValue": "NotStarted"
+      }
+    },
+    "annotations": [
+      "NYC Taxi Data Ingestion",
+      "GitHub to ADLS Gen2"
+    ],
+    "parameters": {
+      "SourceURL": {
+        "type": "string",
+        "defaultValue": "https://raw.githubusercontent.com/stephenleo/nyc-taxi/refs/heads/master/data.csv"
+      },
+      "SinkPath": {
+        "type": "string",
+        "defaultValue": "nyctaxi/raw/"
+      }
+    }
+  },
+  "type": "Microsoft.DataFactory/factories/pipelines"
+}
