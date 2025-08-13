@@ -1,0 +1,9 @@
+{
+  "name": "AzureDataLakeStorage",
+  "properties": {
+    "type": "AzureBlobStorage",
+    "typeProperties": {
+      "connectionString": "<secure-connection-string>"
+    }
+  }
+}

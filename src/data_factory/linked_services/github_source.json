@@ -1,0 +1,9 @@
+{
+  "name": "GitHubSource",
+  "properties": {
+    "type": "Http",
+    "typeProperties": {
+      "url": "<github url>"
+    }
+  }
+}

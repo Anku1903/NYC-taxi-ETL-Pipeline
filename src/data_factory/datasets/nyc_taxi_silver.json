@@ -1,0 +1,19 @@
+{
+  "name": "NYCTaxiSilverDataset",
+  "properties": {
+    "linkedServiceName": {
+      "referenceName": "AzureDataLakeStorage",
+      "type": "LinkedServiceReference"
+    },
+    "type": "DelimitedText",
+    "typeProperties": {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "folderPath": "silver/nyc_taxi/"
+      },
+      "columnDelimiter": ",",
+      "escapeChar": "\\",
+      "firstRowAsHeader": true
+    }
+  }
+}

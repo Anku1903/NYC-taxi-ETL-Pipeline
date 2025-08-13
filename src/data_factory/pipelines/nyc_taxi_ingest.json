@@ -1,0 +1,79 @@
+{
+  "name": "NYCTaxiIngestPipeline",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyNYCTaxiRawToBronze",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "NYCTaxiRawDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "NYCTaxiBronzeDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource"
+          },
+          "sink": {
+            "type": "DelimitedTextSink"
+          }
+        }
+      },
+      {
+        "name": "CopyBronzeToSilver",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "NYCTaxiBronzeDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "NYCTaxiSilverDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource"
+          },
+          "sink": {
+            "type": "DelimitedTextSink"
+          }
+        }
+      },
+      {
+        "name": "CopySilverToGold",
+        "type": "Copy",
+        "inputs": [
+          {
+            "referenceName": "NYCTaxiSilverDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "NYCTaxiGoldDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource"
+          },
+          "sink": {
+            "type": "DelimitedTextSink"
+          }
+        }
+      }
+    ]
+  }
+}

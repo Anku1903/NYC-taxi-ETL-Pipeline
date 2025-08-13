@@ -1,0 +1,19 @@
+{
+  "name": "NYCTaxiRawDataset",
+  "properties": {
+    "linkedServiceName": {
+      "referenceName": "GitHubSource",
+      "type": "LinkedServiceReference"
+    },
+    "type": "DelimitedText",
+    "typeProperties": {
+      "location": {
+        "type": "HttpServerLocation",
+        "folderPath": ""
+      },
+      "columnDelimiter": ",",
+      "escapeChar": "\\",
+      "firstRowAsHeader": true
+    }
+  }
+}

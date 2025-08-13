@@ -1,0 +1,30 @@
+{
+  "name": "NYCTaxiETLJob",
+  "tasks": [
+    {
+      "task_key": "ingest_raw",
+      "notebook_path": "/Repos/NYC-taxi-ETL-Pipeline/src/databricks/notebooks/01_ingest_raw_data.py"
+    },
+    {
+      "task_key": "bronze_to_silver",
+      "notebook_path": "/Repos/NYC-taxi-ETL-Pipeline/src/databricks/notebooks/02_bronze_to_silver.py"
+    },
+    {
+      "task_key": "silver_to_gold",
+      "notebook_path": "/Repos/NYC-taxi-ETL-Pipeline/src/databricks/notebooks/03_silver_to_gold.py"
+    },
+    {
+      "task_key": "star_schema",
+      "notebook_path": "/Repos/NYC-taxi-ETL-Pipeline/src/databricks/notebooks/04_star_schema.py"
+    }
+  ],
+  "cluster": {
+    "spark_version": "12.2.x-scala2.12",
+    "node_type_id": "Standard_DS3_v2",
+    "num_workers": 4
+  },
+  "schedule": {
+    "quartz_cron_expression": "0 0 * * * ?",
+    "timezone_id": "UTC"
+  }
+}
