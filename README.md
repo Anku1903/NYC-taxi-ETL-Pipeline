@@ -12,22 +12,15 @@ The dataset contains NYC taxi trip records with fields such as:
 
 
 ## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Architecture](#architecture)
-3. [Folder Structure](#folder-structure)
-4. [Pipeline Stages](#pipeline-stages)
+1. [Architecture](#architecture)
+2. [Folder Structure](#folder-structure)
+3. [Pipeline Stages](#pipeline-stages)
    - [Data Ingestion](#data-ingestion)
    - [Data Processing](#data-processing)
    - [Data Warehousing](#data-warehousing)
    - [Analytics & Visualization](#analytics--visualization)
-5. [Real-World Use Cases](#real-world-use-cases)
-6. [Data Quality & Monitoring](#data-quality--monitoring)
-
----
-
-## Project Overview
-
-This project is an end-to-end ETL pipeline for NYC taxi trip data, built using Azure Data Factory, Databricks, Synapse Analytics, and Power BI. It automates the ingestion, transformation, and loading of taxi data for analytics and reporting, following industry best practices.
+4. [Real-World Use Cases](#real-world-use-cases)
+5. [Data Quality & Monitoring](#data-quality--monitoring)
 
 ---
 
